@@ -168,12 +168,12 @@ class CorrespondenciaRenderer {
         `).join('');
     }
 
-    // Gera lista de documentos
+    // Gera lista de documentos - clicáveis
     gerarDocumentos(documentos) {
         return documentos.map(doc => `
             <li class="document-item ${doc.principal ? 'principal' : ''}">
                 <i class="fas fa-file-pdf"></i>
-                <a href="${doc.url}" onclick="event.stopPropagation();">${doc.nome}</a>
+                <a href="#" onclick="event.stopPropagation(); downloadDocumento('${doc.nome}', '${doc.url}'); return false;">${doc.nome}</a>
                 ${doc.principal ? '<span class="badge badge-intimacao">PRINCIPAL</span>' : ''}
             </li>
         `).join('');
@@ -209,7 +209,7 @@ class CorrespondenciaRenderer {
         if (acoes.podeAlterarPrazo) {
             botoes.push(`
                 <button class="action-btn" onclick="event.stopPropagation(); alterarPrazo(${numero})">
-                    <i class="fas fa-calendar-edit"></i>
+                    <i class="fas fa-calendar"></i>
                     Alterar Prazo
                 </button>
             `);
@@ -368,6 +368,7 @@ class CorrespondenciaRenderer {
                         </div>
                         
                         ${this.gerarPrazosInline(corresp)}
+                        ${this.gerarDocumentoPrincipalInline(corresp)}
                         
                         <div class="card-expand">
                             <i class="fas fa-chevron-down"></i>
@@ -504,5 +505,22 @@ class CorrespondenciaRenderer {
         });
         
         this.renderizar();
+    }
+
+    // Gera documento principal inline para o header - clicável
+    gerarDocumentoPrincipalInline(corresp) {
+        const docPrincipal = corresp.documentos.find(doc => doc.principal);
+        
+        if (!docPrincipal) return '';
+        
+        return `
+            <div class="card-documento-inline" onclick="event.stopPropagation(); downloadDocumento('${docPrincipal.nome}', '${docPrincipal.url}')">
+                <i class="fas fa-file-pdf"></i>
+                <div class="card-documento-info">
+                    <span class="card-documento-label">Documento Principal</span>
+                    <span class="card-documento-nome" title="${docPrincipal.nome}">${docPrincipal.nome}</span>
+                </div>
+            </div>
+        `;
     }
 }

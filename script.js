@@ -229,3 +229,22 @@ document.addEventListener('keydown', function(e) {
         fecharModal();
     }
 });
+
+// Função para download de documento
+function downloadDocumento(nomeArquivo, url) {
+    // Se for uma URL real, faz o download
+    if (url && url !== '#') {
+        // Cria um elemento <a> temporário para forçar o download
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = nomeArquivo;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        console.log(`Download iniciado: ${nomeArquivo}`);
+    } else {
+        // Para demonstração (quando url é '#')
+        alert(`Download do arquivo: ${nomeArquivo}\n\nEm produção, isso faria o download real do arquivo.`);
+    }
+}

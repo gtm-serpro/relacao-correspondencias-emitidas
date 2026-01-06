@@ -129,8 +129,7 @@ body {
 }
 
 .details-grid {
-    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-    gap: 20px
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr))
 }
 
 .documents-section {
@@ -184,11 +183,6 @@ body {
 
 .document-item.principal {
     background: #f0f7ff
-}
-
-.actions-section {
-    display: flex;
-    flex-wrap: wrap
 }
 
 .action-btn:hover {
@@ -431,9 +425,12 @@ body {
     font-size: 14px
 }
 
-.card-expand {
+.actions-section,.card-expand {
     display: flex;
-    align-items: center;
+    align-items: center
+}
+
+.card-expand {
     justify-content: center;
     width: 36px;
     height: 36px;
@@ -455,8 +452,7 @@ body {
 .actions-section {
     padding: 20px;
     border-top: 1px solid #e5e5e5;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    flex-wrap: wrap;
     gap: 10px
 }
 
@@ -465,7 +461,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 14px;
+    padding: 10px 16px;
     background: #fff;
     border: 1px solid #d1d5db;
     color: #333;
@@ -473,7 +469,9 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all .2s;
-    white-space: nowrap
+    white-space: nowrap;
+    width: auto;
+    min-width: fit-content
 }
 
 .action-btn:hover {
@@ -499,12 +497,6 @@ body {
 
 .dropdown,.dropdown-item,.dropdown-menu {
     display: none
-}
-
-@media (max-width:1200px) {
-    .actions-section {
-        grid-template-columns: repeat(auto-fill,minmax(180px,1fr))
-    }
 }
 
 @media (max-width:768px) {
@@ -879,56 +871,7 @@ button {
     display: grid;
     grid-template-columns: repeat(4,auto);
     column-gap: 0;
-    row-gap: 0;
-    padding: 20px;
-    background: #f8f8f8;
-    justify-content: start
-}
-
-.detail-item {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 0 24px;
-    position: relative
-}
-
-.detail-item:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 60%;
-    background: linear-gradient(to bottom,transparent,#d1d5db 20%,#d1d5db 80%,transparent)
-}
-
-.detail-item:first-child {
-    padding-left: 0
-}
-
-.detail-item:last-child {
-    padding-right: 0
-}
-
-.detail-label,.detail-value {
-    font-size: 12px;
-    color: #666;
-    font-weight: 500;
-    line-height: 1.2
-}
-
-.detail-value {
-    font-size: 15px;
-    color: #1351b4;
-    font-weight: 700
-}
-
-.detail-value.empty {
-    color: #999;
-    font-style: italic;
-    font-weight: 400
+    row-gap: 0
 }
 
 @media (max-width:1200px) {
@@ -1031,4 +974,551 @@ button {
     font-style: italic;
     font-weight: 400;
     font-size: 11px
+}
+
+@media (min-width:1400px) {
+    .card-prazos-inline {
+        display: flex
+    }
+
+    .details-grid {
+        display: none
+    }
+
+    .card-main-row {
+        align-items: center
+    }
+}
+
+@media (max-width:1399px) {
+    .card-prazos-inline {
+        display: none
+    }
+
+    .details-grid {
+        display: grid
+    }
+}
+
+.details-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 20px;
+    background: #f8f8f8;
+    justify-content: flex-start;
+    align-items: flex-start
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 20px;
+    position: relative;
+    width: auto;
+    min-width: fit-content
+}
+
+.detail-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background: linear-gradient(to bottom,transparent,#d1d5db 20%,#d1d5db 80%,transparent)
+}
+
+.detail-item:first-child {
+    padding-left: 0
+}
+
+.detail-item:last-child {
+    padding-right: 0
+}
+
+.detail-label,.detail-value {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap
+}
+
+.detail-value {
+    font-size: 15px;
+    color: #1351b4;
+    font-weight: 700
+}
+
+.detail-value.empty {
+    color: #999;
+    font-style: italic;
+    font-weight: 400
+}
+
+@media (max-width:768px) {
+    .details-grid {
+        flex-direction: column;
+        gap: 0
+    }
+
+    .detail-item {
+        width: 100%;
+        padding: 16px 0;
+        border-bottom: 1px solid #e5e5e5
+    }
+
+    .detail-item::after {
+        display: none
+    }
+
+    .detail-item:first-child {
+        padding-top: 0
+    }
+
+    .detail-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        padding-right: 0
+    }
+
+    .detail-label,.detail-value {
+        white-space: normal
+    }
+}
+/* Media queries para controlar quando mostrar prazos no header */
+@media (min-width: 1400px) {
+    .card-prazos-inline {
+        display: flex;
+    }
+    
+    /* Oculta o details-grid quando os prazos estão no header */
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .card-prazos-inline {
+        display: none;
+    }
+    
+    /* Mostra o details-grid quando os prazos NÃO estão no header */
+    .details-grid {
+        display: flex;
+    }
+}
+/* Versão melhorada dos prazos inline no header - fontes maiores */
+.card-prazos-inline {
+    display: none;
+    gap: 0;
+    padding: 10px 20px;
+    margin-left: auto;
+    border-left: 2px solid #e5e5e5;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.card-prazo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 16px;
+    position: relative;
+}
+
+.card-prazo-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 50%;
+    background: #d1d5db;
+}
+
+.card-prazo-item:first-child {
+    padding-left: 0;
+}
+
+.card-prazo-item:last-child {
+    padding-right: 0;
+}
+
+.card-prazo-label {
+    font-size: 10px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.card-prazo-value {
+    font-size: 14px;
+    color: #1351b4;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.card-prazo-value.empty {
+    color: #999;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+/* Documento principal no header */
+.card-documento-inline {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    margin-left: 16px;
+    border-left: 2px solid #e5e5e5;
+    background: #f0f7ff;
+    border-radius: 8px;
+    max-width: 300px;
+}
+
+.card-documento-inline i {
+    color: #DC2626;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.card-documento-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.card-documento-label {
+    font-size: 9px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.card-documento-nome {
+    font-size: 13px;
+    color: #1351b4;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Media queries para controlar quando mostrar no header */
+@media (min-width: 1600px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: flex;
+    }
+    
+    /* Oculta documentos na seção expandida quando estão no header */
+    .correspondence-card.expanded .documents-section {
+        display: none;
+    }
+    
+    /* Oculta o details-grid quando os prazos estão no header */
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+    /* Só mostra prazos, sem documento */
+    .card-prazos-inline {
+        display: flex;
+    }
+    
+    .card-documento-inline {
+        display: none;
+    }
+    
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: none;
+    }
+    
+    /* Mostra o details-grid quando os prazos NÃO estão no header */
+    .details-grid {
+        display: flex;
+    }
+    
+    .correspondence-card.expanded .documents-section {
+        display: block;
+    }
+}
+
+/* Versão melhorada dos prazos inline no header - com larguras fixas */
+.card-prazos-inline {
+    display: none;
+    gap: 0;
+    padding: 10px 20px;
+    margin-left: auto;
+    border-left: 2px solid #e5e5e5;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.card-prazo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 16px;
+    position: relative;
+    width: 140px; /* Largura fixa para todos os itens */
+    min-width: 140px;
+}
+
+.card-prazo-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 50%;
+    background: #d1d5db;
+}
+
+.card-prazo-item:first-child {
+    padding-left: 0;
+}
+
+.card-prazo-item:last-child {
+    padding-right: 0;
+}
+
+.card-prazo-label {
+    font-size: 10px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.card-prazo-value {
+    font-size: 14px;
+    color: #1351b4;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-prazo-value.empty {
+    color: #999;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+/* Documento principal no header - com largura fixa */
+.card-documento-inline {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    margin-left: 16px;
+    border-left: 2px solid #e5e5e5;
+    background: #f0f7ff;
+    border-radius: 8px;
+    width: 280px; /* Largura fixa */
+    min-width: 280px;
+}
+
+.card-documento-inline i {
+    color: #DC2626;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.card-documento-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+}
+
+.card-documento-label {
+    font-size: 9px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+
+.card-documento-nome {
+    font-size: 13px;
+    color: #1351b4;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Media queries para controlar quando mostrar no header */
+@media (min-width: 1600px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: flex;
+    }
+    
+    /* Oculta documentos na seção expandida quando estão no header */
+    .correspondence-card.expanded .documents-section {
+        display: none;
+    }
+    
+    /* Oculta o details-grid quando os prazos estão no header */
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+    /* Só mostra prazos, sem documento */
+    .card-prazos-inline {
+        display: flex;
+    }
+    
+    .card-documento-inline {
+        display: none;
+    }
+    
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: none;
+    }
+    
+    /* Mostra o details-grid quando os prazos NÃO estão no header */
+    .details-grid {
+        display: flex;
+    }
+    
+    .correspondence-card.expanded .documents-section {
+        display: block;
+    }
+}
+/* Media queries para controlar quando mostrar no header */
+@media (min-width: 1600px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: flex;
+    }
+    
+    /* REMOVIDO: não oculta mais a seção de documentos */
+    /* .correspondence-card.expanded .documents-section {
+        display: none;
+    } */
+    
+    /* Oculta o details-grid quando os prazos estão no header */
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (min-width: 1400px) and (max-width: 1599px) {
+    /* Só mostra prazos, sem documento */
+    .card-prazos-inline {
+        display: flex;
+    }
+    
+    .card-documento-inline {
+        display: none;
+    }
+    
+    .details-grid {
+        display: none !important;
+    }
+    
+    .card-main-row {
+        align-items: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .card-prazos-inline,
+    .card-documento-inline {
+        display: none;
+    }
+    
+    /* Mostra o details-grid quando os prazos NÃO estão no header */
+    .details-grid {
+        display: flex;
+    }
+}
+.card-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+    border-top: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+.card-details > div {
+    overflow: hidden;
+}
+
+.correspondence-card.expanded .card-details {
+    grid-template-rows: 1fr;
+}
+
+/* Remove qualquer display:none que possa estar interferindo */
+.documents-section {
+    display: block;
 }
