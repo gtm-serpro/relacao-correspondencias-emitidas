@@ -1,7 +1,30 @@
 // Toggle card expansion
+// Toggle card expansion com altura calculada
 function toggleCard(cardMain) {
     const card = cardMain.closest('.correspondence-card');
-    card.classList.toggle('expanded');
+    const details = card.querySelector('.card-details');
+    
+    if (card.classList.contains('expanded')) {
+        // Fechando
+        details.style.maxHeight = details.scrollHeight + 'px';
+        
+        // Força reflow
+        details.offsetHeight;
+        
+        details.style.maxHeight = '0';
+        card.classList.remove('expanded');
+    } else {
+        // Abrindo
+        card.classList.add('expanded');
+        details.style.maxHeight = details.scrollHeight + 'px';
+        
+        // Remove max-height após transição para permitir conteúdo dinâmico
+        setTimeout(() => {
+            if (card.classList.contains('expanded')) {
+                details.style.maxHeight = 'none';
+            }
+        }, 350);
+    }
 }
 
 // Toggle exibir devolvidas/canceladas
