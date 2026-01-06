@@ -458,6 +458,10 @@ body {
     height: 18px;
     cursor: pointer;
 }
+
+.h4, h4 {
+    margin-bottom: 32px;
+}
 @media (max-width: 768px) {
     .card-main-row {
         flex-direction: column;
@@ -486,5 +490,8 @@ body {
     .dropdown-menu {
         left: 0;
         right: 0;
+    }
+    .h4, h4 {
+        margin-bottom: var(--spacing-scale-2xh);
     }
 }
