@@ -93,3 +93,139 @@ function reenviarEmail(numero) {
 
 // Initial count
 updateCount();
+
+function verDetalhamento(id) {
+    // Busca a correspondência nos dados
+    const corresp = correspondenciasData.find(c => c.id === id);
+    
+    if (!corresp) {
+        console.error('Correspondência não encontrada');
+        return;
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-detalhamento';
+    modal.innerHTML = `
+        <div class="modal-overlay" onclick="fecharModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-alt"></i> Detalhamento Completo - Correspondência Nº ${corresp.numero}</h3>
+                <button class="modal-close" onclick="fecharModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="detalhamento-section">
+                    <h4>Informações Gerais</h4>
+                    <div class="info-row">
+                        <span class="info-label">Número:</span>
+                        <span class="info-value">${corresp.numero}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Data de Emissão:</span>
+                        <span class="info-value">${new Date(corresp.dataEmissao).toLocaleString('pt-BR')}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Destinatário:</span>
+                        <span class="info-value">${corresp.destinatario.nome} (${corresp.destinatario.tipoDocumento}: ${corresp.destinatario.documento})</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Tipo:</span>
+                        <span class="info-value">${corresp.tipo === 'intimacao' ? 'Intimação' : 'Comunicado'}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Natureza:</span>
+                        <span class="info-value">${corresp.natureza.nome}</span>
+                    </div>
+                </div>
+                
+                <div class="detalhamento-section">
+                    <h4>Status e Prazos</h4>
+                    <div class="info-row">
+                        <span class="info-label">Status da Ciência:</span>
+                        <span class="info-value">${corresp.status.ciencia.texto}</span>
+                    </div>
+                    ${corresp.status.ciencia.dataCientificacao ? `
+                    <div class="info-row">
+                        <span class="info-label">Data da Cientificação:</span>
+                        <span class="info-value">${new Date(corresp.status.ciencia.dataCientificacao).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    ` : ''}
+                    ${corresp.prazos.prazoManifestacao ? `
+                    <div class="info-row">
+                        <span class="info-label">Prazo de Manifestação:</span>
+                        <span class="info-value">${corresp.prazos.prazoManifestacao} dias</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Data Final de Manifestação:</span>
+                        <span class="info-value">${new Date(corresp.prazos.dataFinalManifestacao).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    ` : ''}
+                    ${corresp.status.manifestacao.dataManifestacao ? `
+                    <div class="info-row">
+                        <span class="info-label">Data da Manifestação:</span>
+                        <span class="info-value">${new Date(corresp.status.manifestacao.dataManifestacao).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                ${corresp.alertas && corresp.alertas.length > 0 ? `
+                <div class="detalhamento-section">
+                    <h4>Observações</h4>
+                    ${corresp.alertas.map(alerta => `
+                        <div class="alert-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>${alerta.mensagem}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                <div class="detalhamento-section">
+                    <h4>Documentos Anexados</h4>
+                    <ul class="document-list-modal">
+                        ${corresp.documentos.map(doc => `
+                            <li>
+                                <i class="fas fa-file-pdf"></i>
+                                <a href="${doc.url}">${doc.nome}</a>
+                                ${doc.principal ? '<span class="badge badge-intimacao">PRINCIPAL</span>' : ''}
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" onclick="fecharModal()">
+                    <i class="fas fa-times"></i>
+                    Fechar
+                </button>
+                <button class="action-btn action-btn-primary" onclick="imprimirDetalhamento()">
+                    <i class="fas fa-print"></i>
+                    Imprimir
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function fecharModal() {
+    const modal = document.querySelector('.modal-detalhamento');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+}
+
+function imprimirDetalhamento() {
+    window.print();
+}
+
+// Fechar modal com ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        fecharModal();
+    }
+});

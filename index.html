@@ -46,29 +46,28 @@
                 <!-- Correspondence Cards -->
                 <div id="correspondenceList">
                     
-                    <!-- Card 1 -->
+                    <!-- Card 1 - Estrutura Melhorada -->
                     <div class="correspondence-card">
                         <div class="card-main" onclick="toggleCard(this)">
                             <div class="card-main-row">
-                                <div class="card-number">
-                                    <span class="card-number-label">Nº</span>
-                                    <span class="card-number-value">00005</span>
+                                <div class="card-header-info">
+                                    <div class="card-number-inline">
+                                        <span class="card-number-label">Nº</span>
+                                        <span class="card-number-value">00005</span>
+                                    </div>
+                                    <div class="card-datetime">
+                                        <i class="far fa-clock"></i>
+                                        <a href="#" onclick="event.stopPropagation();">19/12/2025 14:35</a>
+                                    </div>
                                 </div>
                                 
                                 <div class="card-main-content">
-                                    <div class="card-main-info">
-                                        <div class="card-datetime">
-                                            <i class="far fa-clock"></i>
-                                            <a href="#" onclick="event.stopPropagation();">19/12/2025 14:35</a>
-                                        </div>
-                                        <span class="card-separator">•</span>
-                                        <div class="card-destinatario">
-                                            <i class="far fa-user"></i>
-                                            <span class="tooltip-trigger">
-                                                João Silva Santos
-                                                <span class="tooltip-content">CPF: 123.456.789-00</span>
-                                            </span>
-                                        </div>
+                                    <div class="card-destinatario">
+                                        <i class="far fa-user"></i>
+                                        <span class="tooltip-trigger">
+                                            João Silva Santos
+                                            <span class="tooltip-content">CPF: 123.456.789-00</span>
+                                        </span>
                                     </div>
                                     
                                     <div class="card-badges">
@@ -98,7 +97,6 @@
                                 </div>
                                 
                                 <div class="card-expand">
-                                    <span>Detalhes</span>
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
                             </div>
@@ -143,31 +141,30 @@
                             </div>
                             
                             <div class="actions-section">
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-download"></i>
-                                        Baixar Documentos
-                                        <i class="fas fa-chevron-up" style="margin-left: auto;"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="downloadDoc('carta')">
-                                            <i class="fas fa-envelope"></i>
-                                            Carta de Orientações
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia')">
-                                            <i class="fas fa-file-alt"></i>
-                                            Documentos da Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia-termo')">
-                                            <i class="fas fa-file-signature"></i>
-                                            Documentos da Ciência com Termo
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('termo')">
-                                            <i class="fas fa-certificate"></i>
-                                            Termo de Ciência Pessoal
-                                        </button>
-                                    </div>
-                                </div>
+                                <button class="action-btn action-btn-primary" onclick="event.stopPropagation(); verDetalhamento(5)">
+                                    <i class="fas fa-file-alt"></i>
+                                    Ver Detalhamento Completo
+                                </button>
+                                
+                                <button class="action-btn" onclick="event.stopPropagation(); downloadDoc('carta')">
+                                    <i class="fas fa-envelope"></i>
+                                    Carta de Orientações
+                                </button>
+                                
+                                <button class="action-btn" onclick="event.stopPropagation(); downloadDoc('ciencia')">
+                                    <i class="fas fa-file-alt"></i>
+                                    Docs. da Ciência
+                                </button>
+                                
+                                <button class="action-btn" onclick="event.stopPropagation(); downloadDoc('ciencia-termo')">
+                                    <i class="fas fa-file-signature"></i>
+                                    Docs. com Termo
+                                </button>
+                                
+                                <button class="action-btn" onclick="event.stopPropagation(); downloadDoc('termo')">
+                                    <i class="fas fa-certificate"></i>
+                                    Termo de Ciência
+                                </button>
                                 
                                 <button class="action-btn" onclick="event.stopPropagation(); alterarPrazo(5)">
                                     <i class="fas fa-calendar-edit"></i>
@@ -179,9 +176,14 @@
                                     Efetivar Manifestação
                                 </button>
                                 
-                                <button class="action-btn" onclick="event.stopPropagation(); cancelarCorrespondencia(5)">
-                                    <i class="fas fa-times-circle"></i>
-                                    Cancelar
+                                <button class="action-btn" onclick="event.stopPropagation(); desfazerCiencia(5)">
+                                    <i class="fas fa-undo"></i>
+                                    Desfazer Ciência
+                                </button>
+                                
+                                <button class="action-btn" onclick="event.stopPropagation(); desfazerManifestacao(5)">
+                                    <i class="fas fa-undo-alt"></i>
+                                    Desfazer Manifestação
                                 </button>
                                 
                                 <button class="action-btn" onclick="event.stopPropagation(); exibirHistorico(5)">
@@ -189,592 +191,10 @@
                                     Histórico
                                 </button>
                                 
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        Mais Ações
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="desfazerCiencia(5)">
-                                            <i class="fas fa-undo"></i>
-                                            Desfazer Efetivação de Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="desfazerManifestacao(5)">
-                                            <i class="fas fa-undo-alt"></i>
-                                            Desfazer Efetivação de Manifestação
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="correspondence-card">
-                        <div class="card-main" onclick="toggleCard(this)">
-                            <div class="card-main-row">
-                                <div class="card-number">
-                                    <span class="card-number-label">Nº</span>
-                                    <span class="card-number-value">00004</span>
-                                </div>
-                                
-                                <div class="card-main-content">
-                                    <div class="card-main-info">
-                                        <div class="card-datetime">
-                                            <i class="far fa-clock"></i>
-                                            <a href="#" onclick="event.stopPropagation();">18/12/2025 10:20</a>
-                                        </div>
-                                        <span class="card-separator">•</span>
-                                        <div class="card-destinatario">
-                                            <i class="far fa-user"></i>
-                                            <span class="tooltip-trigger">
-                                                Maria Oliveira Costa
-                                                <span class="tooltip-content">CPF: 987.654.321-00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card-badges">
-                                        <span class="badge badge-comunicado">
-                                            <i class="fas fa-info-circle"></i>
-                                            Comunicado
-                                        </span>
-                                        <span class="badge badge-natureza">
-                                            <i class="fas fa-at"></i>
-                                            E-mail
-                                        </span>
-                                        <span class="badge badge-sucesso">
-                                            <i class="fas fa-check-circle"></i>
-                                            Efetivada por Abertura
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-expand">
-                                    <span>Detalhes</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-details">
-                            <div class="details-grid">
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Cientificação</span>
-                                    <span class="detail-value">18/12/2025</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Prazo de Manifestação</span>
-                                    <span class="detail-value empty">Não aplicável</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data Final de Manifestação</span>
-                                    <span class="detail-value empty">—</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Manifestação</span>
-                                    <span class="detail-value empty">—</span>
-                                </div>
-                            </div>
-                            
-                            <div class="documents-section">
-                                <div class="documents-title">
-                                    <i class="fas fa-paperclip"></i>
-                                    Documentos da Correspondência
-                                </div>
-                                <ul class="document-list">
-                                    <li class="document-item principal">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Comunicado_Administrativo.pdf</a>
-                                        <span class="badge badge-intimacao">PRINCIPAL</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="actions-section">
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-download"></i>
-                                        Baixar Documentos
-                                        <i class="fas fa-chevron-up" style="margin-left: auto;"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia')">
-                                            <i class="fas fa-file-alt"></i>
-                                            Documentos da Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia-termo')">
-                                            <i class="fas fa-file-signature"></i>
-                                            Documentos da Ciência com Termo
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('termo')">
-                                            <i class="fas fa-certificate"></i>
-                                            Termo de Ciência Pessoal
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); cancelarCorrespondencia(4)">
+                                <button class="action-btn action-btn-danger" onclick="event.stopPropagation(); cancelarCorrespondencia(5)">
                                     <i class="fas fa-times-circle"></i>
                                     Cancelar
                                 </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); exibirHistorico(4)">
-                                    <i class="fas fa-history"></i>
-                                    Histórico
-                                </button>
-                                
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        Mais Ações
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="desfazerCiencia(4)">
-                                            <i class="fas fa-undo"></i>
-                                            Desfazer Efetivação de Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="copiarEmail(4)">
-                                            <i class="fas fa-copy"></i>
-                                            Copiar Dados do E-mail
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="correspondence-card">
-                        <div class="card-main" onclick="toggleCard(this)">
-                            <div class="card-main-row">
-                                <div class="card-number">
-                                    <span class="card-number-label">Nº</span>
-                                    <span class="card-number-value">00003</span>
-                                </div>
-                                
-                                <div class="card-main-content">
-                                    <div class="card-main-info">
-                                        <div class="card-datetime">
-                                            <i class="far fa-clock"></i>
-                                            <a href="#" onclick="event.stopPropagation();">15/12/2025 16:45</a>
-                                        </div>
-                                        <span class="card-separator">•</span>
-                                        <div class="card-destinatario">
-                                            <i class="far fa-building"></i>
-                                            <span class="tooltip-trigger">
-                                                Empresa XYZ Ltda
-                                                <span class="tooltip-content">CNPJ: 12.345.678/0001-90</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card-badges">
-                                        <span class="badge badge-intimacao">
-                                            <i class="fas fa-bell"></i>
-                                            Intimação
-                                        </span>
-                                        <span class="badge badge-natureza">
-                                            <i class="fas fa-newspaper"></i>
-                                            Edital
-                                        </span>
-                                        <span class="badge badge-sucesso">
-                                            <i class="fas fa-check-circle"></i>
-                                            Efetivada por Decurso
-                                        </span>
-                                        <span class="badge badge-sucesso">
-                                            <i class="fas fa-check-double"></i>
-                                            Manifestação Efetivada
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-expand">
-                                    <span>Detalhes</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-details">
-                            <div class="details-grid">
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Cientificação</span>
-                                    <span class="detail-value">10/12/2025</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Prazo de Manifestação</span>
-                                    <span class="detail-value">15 dias</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data Final de Manifestação</span>
-                                    <span class="detail-value">25/12/2025</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Manifestação</span>
-                                    <span class="detail-value">20/12/2025</span>
-                                </div>
-                            </div>
-                            
-                            <div class="documents-section">
-                                <div class="documents-title">
-                                    <i class="fas fa-paperclip"></i>
-                                    Documentos da Correspondência
-                                </div>
-                                <ul class="document-list">
-                                    <li class="document-item principal">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Intimacao_Fiscal.pdf</a>
-                                        <span class="badge badge-intimacao">PRINCIPAL</span>
-                                    </li>
-                                    <li class="document-item">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Relatorio_Auditoria.pdf</a>
-                                    </li>
-                                    <li class="document-item">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Planilha_Calculos.pdf</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="actions-section">
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-download"></i>
-                                        Baixar Documentos
-                                        <i class="fas fa-chevron-up" style="margin-left: auto;"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia')">
-                                            <i class="fas fa-file-alt"></i>
-                                            Documentos da Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia-termo')">
-                                            <i class="fas fa-file-signature"></i>
-                                            Documentos da Ciência com Termo
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('edital')">
-                                            <i class="fas fa-newspaper"></i>
-                                            Edital
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('termo')">
-                                            <i class="fas fa-certificate"></i>
-                                            Termo de Ciência Pessoal
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); alterarPrazo(3)">
-                                    <i class="fas fa-calendar-edit"></i>
-                                    Alterar Prazo
-                                </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); cancelarCorrespondencia(3)">
-                                    <i class="fas fa-times-circle"></i>
-                                    Cancelar
-                                </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); exibirHistorico(3)">
-                                    <i class="fas fa-history"></i>
-                                    Histórico
-                                </button>
-                                
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        Mais Ações
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="desfazerCiencia(3)">
-                                            <i class="fas fa-undo"></i>
-                                            Desfazer Efetivação de Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="desfazerManifestacao(3)">
-                                            <i class="fas fa-undo-alt"></i>
-                                            Desfazer Efetivação de Manifestação
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 - Cancelada (oculta por padrão) -->
-                    <div class="correspondence-card hidden-devolvida" data-devolvida="true">
-                        <div class="card-main" onclick="toggleCard(this)">
-                            <div class="card-main-row">
-                                <div class="card-number">
-                                    <span class="card-number-label">Nº</span>
-                                    <span class="card-number-value">00002</span>
-                                </div>
-                                
-                                <div class="card-main-content">
-                                    <div class="card-main-info">
-                                        <div class="card-datetime">
-                                            <i class="far fa-clock"></i>
-                                            <a href="#" onclick="event.stopPropagation();">12/12/2025 09:15</a>
-                                        </div>
-                                        <span class="card-separator">•</span>
-                                        <div class="card-destinatario">
-                                            <i class="far fa-user"></i>
-                                            <span class="tooltip-trigger">
-                                                Carlos Alberto Pereira
-                                                <span class="tooltip-content">CPF: 456.789.123-00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card-badges">
-                                        <span class="badge badge-comunicado">
-                                            <i class="fas fa-info-circle"></i>
-                                            Comunicado
-                                        </span>
-                                        <span class="badge badge-natureza">
-                                            <i class="fas fa-user-circle"></i>
-                                            Pessoal - Usuário Interno
-                                        </span>
-                                        <span class="badge badge-cancelada">
-                                            <i class="fas fa-ban"></i>
-                                            Cancelada
-                                        </span>
-                                        <span class="badge badge-pendente">
-                                            <i class="fas fa-times-circle"></i>
-                                            Não Efetivada
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-expand">
-                                    <span>Detalhes</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-details">
-                            <div class="details-grid">
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Cientificação</span>
-                                    <span class="detail-value empty">Não efetivada</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Prazo de Manifestação</span>
-                                    <span class="detail-value empty">—</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data Final de Manifestação</span>
-                                    <span class="detail-value empty">—</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Manifestação</span>
-                                    <span class="detail-value empty">—</span>
-                                </div>
-                            </div>
-                            
-                            <div class="documents-section">
-                                <div class="documents-title">
-                                    <i class="fas fa-paperclip"></i>
-                                    Documentos da Correspondência
-                                </div>
-                                <ul class="document-list">
-                                    <li class="document-item principal">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Aviso_Interno.pdf</a>
-                                        <span class="badge badge-intimacao">PRINCIPAL</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="actions-section">
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-download"></i>
-                                        Baixar Documentos
-                                        <i class="fas fa-chevron-up" style="margin-left: auto;"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia')">
-                                            <i class="fas fa-file-alt"></i>
-                                            Documentos da Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia-termo')">
-                                            <i class="fas fa-file-signature"></i>
-                                            Documentos da Ciência com Termo
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('termo')">
-                                            <i class="fas fa-certificate"></i>
-                                            Termo de Ciência Pessoal
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); exibirHistorico(2)">
-                                    <i class="fas fa-history"></i>
-                                    Histórico
-                                </button>
-                                
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        Mais Ações
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="reenviarEmail(2)">
-                                            <i class="fas fa-paper-plane"></i>
-                                            Reenviar E-mail
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5 -->
-                    <div class="correspondence-card">
-                        <div class="card-main" onclick="toggleCard(this)">
-                            <div class="card-main-row">
-                                <div class="card-number">
-                                    <span class="card-number-label">Nº</span>
-                                    <span class="card-number-value">00001</span>
-                                </div>
-                                
-                                <div class="card-main-content">
-                                    <div class="card-main-info">
-                                        <div class="card-datetime">
-                                            <i class="far fa-clock"></i>
-                                            <a href="#" onclick="event.stopPropagation();">10/12/2025 11:30</a>
-                                        </div>
-                                        <span class="card-separator">•</span>
-                                        <div class="card-destinatario">
-                                            <i class="far fa-user"></i>
-                                            <span class="tooltip-trigger">
-                                                Ana Paula Rodrigues
-                                                <span class="tooltip-content">CPF: 789.123.456-00</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card-badges">
-                                        <span class="badge badge-intimacao">
-                                            <i class="fas fa-bell"></i>
-                                            Intimação
-                                        </span>
-                                        <span class="badge badge-natureza">
-                                            <i class="fas fa-inbox"></i>
-                                            DTE - RFB
-                                        </span>
-                                        <span class="badge badge-sucesso">
-                                            <i class="fas fa-check-circle"></i>
-                                            Efetivada na Caixa Postal
-                                        </span>
-                                        <span class="badge badge-pendente">
-                                            <i class="far fa-clock"></i>
-                                            Manifestação Pendente
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <div class="card-expand">
-                                    <span>Detalhes</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-details">
-                            <div class="details-grid">
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Cientificação</span>
-                                    <span class="detail-value">11/12/2025</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Prazo de Manifestação</span>
-                                    <span class="detail-value">10 dias</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data Final de Manifestação</span>
-                                    <span class="detail-value">21/12/2025</span>
-                                </div>
-                                <div class="detail-item">
-                                    <span class="detail-label">Data da Manifestação</span>
-                                    <span class="detail-value empty">Não manifestado</span>
-                                </div>
-                            </div>
-                            
-                            <div class="documents-section">
-                                <div class="documents-title">
-                                    <i class="fas fa-paperclip"></i>
-                                    Documentos da Correspondência
-                                </div>
-                                <ul class="document-list">
-                                    <li class="document-item principal">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <a href="#" onclick="event.stopPropagation();">Notificacao_DTE.pdf</a>
-                                        <span class="badge badge-intimacao">PRINCIPAL</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div class="actions-section">
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-download"></i>
-                                        Baixar Documentos
-                                        <i class="fas fa-chevron-up" style="margin-left: auto;"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia')">
-                                            <i class="fas fa-file-alt"></i>
-                                            Documentos da Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('ciencia-termo')">
-                                            <i class="fas fa-file-signature"></i>
-                                            Documentos da Ciência com Termo
-                                        </button>
-                                        <button class="dropdown-item" onclick="downloadDoc('termo')">
-                                            <i class="fas fa-certificate"></i>
-                                            Termo de Ciência Pessoal
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); alterarPrazo(1)">
-                                    <i class="fas fa-calendar-edit"></i>
-                                    Alterar Prazo
-                                </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); efetivarManifestacao(1)">
-                                    <i class="fas fa-check-circle"></i>
-                                    Efetivar Manifestação
-                                </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); cancelarCorrespondencia(1)">
-                                    <i class="fas fa-times-circle"></i>
-                                    Cancelar
-                                </button>
-                                
-                                <button class="action-btn" onclick="event.stopPropagation(); exibirHistorico(1)">
-                                    <i class="fas fa-history"></i>
-                                    Histórico
-                                </button>
-                                
-                                <div class="dropdown">
-                                    <button class="action-btn" onclick="event.stopPropagation(); toggleDropdown(this)">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                        Mais Ações
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" onclick="desfazerCiencia(1)">
-                                            <i class="fas fa-undo"></i>
-                                            Desfazer Efetivação de Ciência
-                                        </button>
-                                        <button class="dropdown-item" onclick="desfazerManifestacao(1)">
-                                            <i class="fas fa-undo-alt"></i>
-                                            Desfazer Efetivação de Manifestação
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -808,6 +228,41 @@
     </div>
 
     <script src="https://docs-ds.estaleiro.serpro.gov.br/govbr-ds-core/dist/core-init.js"></script>
+    <!-- No final do body, antes do fechamento -->
+    <script src="dados-correspondencias.js"></script>
+    <script src="renderizador-cards.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Inicializa o renderizador
+        const renderer = new CorrespondenciaRenderer('correspondenceList');
+        
+        // Carrega os dados
+        renderer.carregarDados(correspondenciasData);
+        
+        // Event listener para checkbox de devolvidas
+        document.getElementById('exibirDevolvidas').addEventListener('change', function() {
+            renderer.toggleDevolvidas(this.checked);
+        });
+        
+        // Exemplo de como adicionar novos cards dinamicamente
+        function adicionarNovaCorrespondencia(novaCorresp) {
+            correspondenciasData.unshift(novaCorresp);
+            renderer.carregarDados(correspondenciasData);
+        }
+        
+        // Exemplo de como remover um card
+        function removerCorrespondencia(id) {
+            const index = correspondenciasData.findIndex(c => c.id === id);
+            if (index > -1) {
+                correspondenciasData.splice(index, 1);
+                renderer.carregarDados(correspondenciasData);
+            }
+        }
+        
+        // Exemplo de ordenação
+        function ordenarPor(campo) {
+            renderer.ordenar(campo, 'desc');
+        }
+</script>
 </body>
 </html>
